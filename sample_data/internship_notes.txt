@@ -1,0 +1,13 @@
+========================================
+Internship Project Notes: AI Research Agent
+========================================
+Project Name: Multi-Hop Autonomous Research System
+Student Role: AI Engineering Intern
+Mentorship Goal: Master tool calling, lifecycle hooks, session memory, and multi-source reasoning.
+
+Key Milestones:
+1. Live Web Search Tool: Connect agent to external web retrieval.
+2. Memory Integration: Store user context and facts across dialogue turns.
+3. Hook Logging: Log start/end timestamps and execution latency for every tool call.
+4. File Reader: Read local documents (.txt and .pdf formats).
+5. Multi-Hop Synthesis: Combine document facts, live web search, and user memory into structured answers.

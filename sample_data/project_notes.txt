@@ -1,0 +1,12 @@
+========================================
+Project Notes: AI Research Agent
+========================================
+Project: Multi-Hop Autonomous Research System
+Focus: Modular Agent Architecture
+
+Key Capabilities:
+1. Live Web Search: Real-time information retrieval via DuckDuckGo.
+2. Memory Integration: Store user context and facts across dialogue turns.
+3. Hook Logging: Log start/end timestamps and execution latency for every tool call.
+4. File Reader: Read local documents (.txt, .md, and .pdf formats).
+5. Multi-Hop Synthesis: Combine document facts, live web search, and session memory into structured answers.

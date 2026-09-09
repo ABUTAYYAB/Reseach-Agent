@@ -1,81 +1,115 @@
-# 🔬 Autonomous AI Research Agent (Week 4 Internship Project)
+# 🔬 Autonomous AI Research Agent
 
 A modular, extensible **Agentic AI Research Assistant** built in Python with **Groq LLM** (`openai/gpt-oss-120b`), live web search (`ddgs`), document analysis (`pypdf`), session memory, and lifecycle observability hooks.
 
+Built as an end-to-end learning project to explore and demonstrate the foundational building blocks of autonomous AI systems from scratch.
+
 ---
 
-## 🌟 Assignment Requirements Verification
+## 🌟 Key Capabilities & Architecture
 
-| Requirement | Implementation Module | How it was Verified |
+| Feature | Implementation | Description |
 | :--- | :--- | :--- |
-| **1. Web-Search Skill** | [`tools/search.py`](file:///home/malik/ai/projects/reserach-agent/tools/search.py) | Queries DuckDuckGo live web search for recent papers, news, and technical breakthroughs. |
-| **2. Session Memory** | [`agent/memory.py`](file:///home/malik/ai/projects/reserach-agent/agent/memory.py) | Dual-tier memory: Conversation buffer + explicit fact store that retains user preferences and notes across turns. |
-| **3. Lifecycle Hooks with Timestamps** | [`agent/hooks.py`](file:///home/malik/ai/projects/reserach-agent/agent/hooks.py) | Intercepts all tool calls (`before_tool_call`, `after_tool_call`, `on_tool_error`), records exact ISO 8601 timestamps and latency, and persists to `logs/tool_executions.log`. |
-| **4. File-Read Plugin** | [`tools/file_reader.py`](file:///home/malik/ai/projects/reserach-agent/tools/file_reader.py) | Safely reads local files (`.txt`, `.md`, and `.pdf` documents) page-by-page. |
-| **5. Multi-Hop Demo** | [`main.py`](file:///home/malik/ai/projects/reserach-agent/main.py) | Single agent resolves compound 3-hop research query combining document inspection, live web search, memory recall, and timestamped hooks. |
+| **🌐 Live Web Search** | [`tools/search.py`](file:///home/malik/ai/projects/reserach-agent/tools/search.py) | Real-time web retrieval via DuckDuckGo (`ddgs`) with zero-config, no-API-key web queries. |
+| **🧠 Session Memory** | [`agent/memory.py`](file:///home/malik/ai/projects/reserach-agent/agent/memory.py) | Dual-layer memory system: short-term conversation buffer + semantic fact store for cross-turn recall. |
+| **🪝 Lifecycle Hooks** | [`agent/hooks.py`](file:///home/malik/ai/projects/reserach-agent/agent/hooks.py) | Intercepts pre/post tool calls, records exact ISO 8601 timestamps, latency in milliseconds, and persists audit logs. |
+| **📄 Document Reader** | [`tools/file_reader.py`](file:///home/malik/ai/projects/reserach-agent/tools/file_reader.py) | Plugin for extracting structured text from local `.txt`, `.md`, and `.pdf` files. |
+| **🔗 Multi-Hop Reasoning** | [`agent/core.py`](file:///home/malik/ai/projects/reserach-agent/agent/core.py) | ReAct reasoning loop resolving compound multi-step queries by chaining tools, documents, and memory. |
 
 ---
 
-## 📂 Architecture & Directory Structure
+## 📂 Project Structure
 
 ```
 reserach-agent/
 ├── agent/
-│   ├── __init__.py          # Exports core classes
+│   ├── __init__.py          # Agent package exports
 │   ├── core.py              # ReAct Agent loop (orchestration & function calling)
 │   ├── memory.py            # Conversation buffer & semantic fact memory store
 │   └── hooks.py             # Lifecycle hooks system & timestamp logger
 ├── tools/
-│   ├── __init__.py          # Exports all tools and registry
-│   ├── base.py              # BaseTool abstract class & ToolRegistry
+│   ├── __init__.py          # Tool registry & exports
+│   ├── base.py              # BaseTool abstract interface & ToolRegistry
 │   ├── search.py            # Web search skill (DuckDuckGo via ddgs)
 │   ├── file_reader.py       # File reader plugin (.txt, .md, .pdf)
 │   └── memory_tool.py       # Remember & Recall memory tools
 ├── sample_data/
-│   ├── quantum_research_brief.pdf  # Test PDF document with research specifications
-│   └── internship_notes.txt        # Test text file
+│   ├── quantum_research_brief.pdf  # Sample research brief for document parsing
+│   └── project_notes.txt           # Sample text notes
 ├── logs/
 │   ├── tool_executions.log  # Human-readable audit log with ISO timestamps
 │   └── tool_executions.jsonl# Machine-readable JSONL execution trace
-├── .env                     # Your API keys (ignored by git)
-├── .env.example             # Safe template
+├── .env.example             # Environment variable template
 ├── .gitignore               # Protects .env, .venv, and logs
-├── requirements.txt         # Dependencies
-├── plan.md                  # Comprehensive concept guide & roadmap
+├── requirements.txt         # Project dependencies
+├── plan.md                  # Comprehensive architectural deep dive & roadmap
+├── requirements.md          # Technical specifications
 └── main.py                  # Entrypoint: Multi-hop demo & interactive CLI
 ```
 
 ---
 
-## 🚀 How to Run
+## 🚀 Quickstart Guide
 
-### 1. Run the Automated Multi-Hop Demo
-Validates all 5 assignment requirements end-to-end:
+### 1. Prerequisites
+- Python 3.10+
+- A free [Groq API Key](https://console.groq.com/) (or Google Gemini API Key)
+
+### 2. Setup Environment
 ```bash
-.venv/bin/python main.py --demo
+# Clone the repository
+git clone https://github.com/ABUTAYYAB/Reseach-Agent.git
+cd Reseach-Agent
+
+# Create and activate a virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
 ```
 
-### 2. Run Interactive CLI Mode
-Chat with the agent in real time, inspect files, and watch hooks log everything live:
-```bash
-.venv/bin/python main.py --interactive
+### 3. Configure API Keys
+Create a `.env` file in the root directory:
+```env
+GROQ_API_KEY=gsk_your_groq_api_key_here
 ```
 
 ---
 
-## 🧠 Core Concepts Explained
+## 🎮 Running the Agent
+
+### 1. Automated Multi-Hop Demo
+Runs a multi-turn scenario validating file reading, live web search, memory recall, and timestamped hooks:
+```bash
+python main.py --demo
+```
+
+### 2. Interactive CLI Mode
+Chat with the agent interactively, query files, search the web, and observe real-time hook logs:
+```bash
+python main.py --interactive
+```
+
+---
+
+## 🧠 Deep Dive: Core Concepts
 
 ### 1. The ReAct Agent Loop ([`agent/core.py`](file:///home/malik/ai/projects/reserach-agent/agent/core.py))
-* The agent does not blindly output text. It runs in an iterative loop:
-  $$\text{User Query} \longrightarrow \text{LLM Reasoning} \longrightarrow \text{Tool Selection} \longrightarrow \text{Hook Interception} \longrightarrow \text{Execution} \longrightarrow \text{Observation} \longrightarrow \text{Synthesis}$$
-* If the LLM determines more data is needed, it triggers tools until it is ready to give a complete answer.
+The agent implements the ReAct (Reason + Act) loop:
+$$\text{User Query} \longrightarrow \text{Reasoning} \longrightarrow \text{Tool Selection} \longrightarrow \text{Hook Interception} \longrightarrow \text{Execution} \longrightarrow \text{Observation} \longrightarrow \text{Synthesis}$$
 
-### 2. Lifecycle Hooks & Observability ([`agent/hooks.py`](file:///home/malik/ai/projects/reserach-agent/agent/hooks.py))
-* `ToolExecutionLoggerHook` intercepts every execution step:
-  - **Pre-Tool Hook**: Captures start timestamp $t_0$, tool name, and input arguments.
-  - **Post-Tool Hook**: Captures end timestamp $t_1$, latency $(t_1 - t_0)$ in milliseconds, output character count, and success state.
-  - **Persistent Logging**: Automatically writes to `logs/tool_executions.log` and `logs/tool_executions.jsonl`.
+### 2. Lifecycle Observability Hooks ([`agent/hooks.py`](file:///home/malik/ai/projects/reserach-agent/agent/hooks.py))
+`ToolExecutionLoggerHook` intercepts every tool execution:
+* **Pre-Tool Hook**: Captures start timestamp $t_0$, tool name, and input arguments.
+* **Post-Tool Hook**: Captures end timestamp $t_1$, latency $(t_1 - t_0)$ in milliseconds, output size, and success status.
+* **Persistent Logging**: Automatically writes to `logs/tool_executions.log` and `logs/tool_executions.jsonl`.
 
-### 3. Session Memory ([`agent/memory.py`](file:///home/malik/ai/projects/reserach-agent/agent/memory.py))
-* **Buffer Memory**: Tracks raw conversation turns.
-* **Fact Memory**: When the user provides explicit preferences or constraints, the agent invokes `remember_fact` to persist them across the entire session.
+### 3. Session Memory System ([`agent/memory.py`](file:///home/malik/ai/projects/reserach-agent/agent/memory.py))
+* **Buffer Memory**: Tracks dialogue turns for short-term conversational context.
+* **Fact Store**: Persists extracted facts and user preferences across conversation turns via `remember_fact` and `recall_facts`.
+
+---
+
+## 📄 License
+MIT License. Free for educational, research, and personal use.

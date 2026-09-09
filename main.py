@@ -1,6 +1,6 @@
 """
 Main Entry Point & Multi-Hop Demonstration Runner.
-Demonstrates all 5 project requirements:
+Demonstrates all 5 project capabilities:
   1. Web search skill
   2. Session memory & fact recall
   3. Lifecycle hook logging with timestamps
@@ -61,7 +61,7 @@ def create_agent(model: str = DEFAULT_MODEL, verbose_hooks: bool = True) -> Rese
 def run_multi_hop_demo(model: str = DEFAULT_MODEL) -> None:
     """
     Executes the automated multi-turn, multi-hop demonstration.
-    Validates all 5 assignment requirements end-to-end.
+    Validates all capabilities end-to-end.
     """
     console.print(
         Panel.fit(
@@ -78,7 +78,7 @@ def run_multi_hop_demo(model: str = DEFAULT_MODEL) -> None:
     # =========================================================================
     console.print("\n[bold cyan]═══ TURN 1: User Preference & Session Memory ═══[/bold cyan]")
     turn1_prompt = (
-        "Hello! I am an AI research intern. Please remember that my primary research domain "
+        "Hello! I am an AI researcher. Please remember that my primary research domain "
         "is photonic quantum computing architectures, and my favorite metric is fault-tolerance decoherence rates."
     )
     console.print(f"[bold yellow]User:[/bold yellow] {turn1_prompt}\n")
@@ -114,9 +114,9 @@ def run_multi_hop_demo(model: str = DEFAULT_MODEL) -> None:
     # =========================================================================
     # SUMMARY TABLE & HOOK LOG VERIFICATION
     # =========================================================================
-    console.print("\n[bold cyan]═══ DEMO SUMMARY: REQUIREMENTS VERIFICATION ═══[/bold cyan]")
-    table = Table(title="Requirement Verification Checklist", border_style="cyan")
-    table.add_column("Requirement", style="bold white")
+    console.print("\n[bold cyan]═══ DEMO SUMMARY: CAPABILITIES VERIFICATION ═══[/bold cyan]")
+    table = Table(title="Agent Capabilities Checklist", border_style="cyan")
+    table.add_column("Capability", style="bold white")
     table.add_column("Status", style="bold green")
     table.add_column("Evidence in Demo", style="white")
 
